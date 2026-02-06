@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Setup frontend route pages",
-      "day": 1,
-      "files": [
-        "client/src/routes/theme-demo/+page.svelte",
-        "client/static/_headers",
-        "client/static/favicon.png",
-        "client/static/offline.html",
-        "client/static/robots.txt",
-        "client/static/sw.js",
-        "client/vercel.json",
-        "infra/Dockerfile.backend",
-        "infra/Dockerfile.backend.prod",
-        "infra/Dockerfile.backend.simple",
-        "infra/Dockerfile.frontend.prod",
-        "infra/Dockerfile.test-minimal",
-        "infra/Dockerfile.workers",
-        "infra/Dockerfile.workers.prod",
-        "infra/deploy/.env.example",
-        "infra/deploy/.eslintrc.js"
-      ],
-      "order": 11
-    },
-    {
       "message": "Update infrastructure configuration",
       "day": 1,
       "files": [
