@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Update project structure",
-      "day": 1,
-      "files": [
-        "client/src/lib/services/gcpApi.js",
-        "client/src/lib/services/payloadSchemaHandler.js",
-        "client/src/lib/services/pipelineApi.js",
-        "client/src/lib/services/stageCompatibility.js",
-        "client/src/lib/services/stageRegistry.js",
-        "client/src/lib/services/stageValidator.js",
-        "client/src/lib/stores/accessibility.js",
-        "client/src/lib/stores/auth.js",
-        "client/src/lib/stores/mockPipeline.js",
-        "client/src/lib/stores/notifications.js",
-        "client/src/lib/stores/optimizedPipeline.js",
-        "client/src/lib/stores/pipeline.js",
-        "client/src/lib/stores/questionnaire.js",
-        "client/src/lib/stores/responsive.js",
-        "client/src/lib/utils/accessibility.js",
-        "client/src/lib/utils/clipboard.js"
-      ],
-      "order": 9
-    },
-    {
       "message": "Add utility helper functions",
       "day": 1,
       "files": [
