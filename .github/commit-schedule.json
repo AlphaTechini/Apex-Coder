@@ -4,29 +4,6 @@
       "message": "Update project structure",
       "day": 1,
       "files": [
-        "client/README.md",
-        "client/api/aws-connection.js",
-        "client/api/github-oauth.js",
-        "client/clear-cache.html",
-        "client/eslint.config.js",
-        "client/jsconfig.json",
-        "client/package-lock.json",
-        "client/pnpm-lock.yaml",
-        "client/src/app.js",
-        "client/src/lib/api/mock-backend.js",
-        "client/src/lib/assets/favicon.png",
-        "client/src/lib/components/AIProcessingIndicator.svelte",
-        "client/src/lib/components/AccessibilitySettings.svelte",
-        "client/src/lib/components/AgentPortrait.svelte",
-        "client/src/lib/components/BuildPageFAQ.svelte",
-        "client/src/lib/components/BuildPageHelp.svelte"
-      ],
-      "order": 4
-    },
-    {
-      "message": "Update project structure",
-      "day": 1,
-      "files": [
         "client/src/lib/components/BuildProgress.svelte",
         "client/src/lib/components/CancelButton.svelte",
         "client/src/lib/components/CyberPanel.svelte",
