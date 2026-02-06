@@ -4,29 +4,6 @@
       "message": "Update project structure",
       "day": 1,
       "files": [
-        "client/src/lib/components/NotificationToast.svelte",
-        "client/src/lib/components/PageLayout.svelte",
-        "client/src/lib/components/index.js",
-        "client/src/routes/+layout.svelte",
-        "client/src/routes/+page.svelte",
-        "client/src/routes/build/+page.svelte",
-        "client/src/routes/build/[id]/+page.svelte",
-        "client/src/routes/layout.css",
-        "client/src/routes/pipelines/+page.svelte",
-        "client/src/routes/questionnaire/+page.svelte",
-        "client/src/routes/settings/+page.svelte",
-        "client/svelte.config.js",
-        "client/tailwind.config.js",
-        "client/vite.config.js",
-        "package.json",
-        "pnpm-workspace.yaml"
-      ],
-      "order": 2
-    },
-    {
-      "message": "Update project structure",
-      "day": 1,
-      "files": [
         "server/.env.example",
         "server/app.js",
         "server/package.json",
