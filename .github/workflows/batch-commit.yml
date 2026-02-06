@@ -72,10 +72,14 @@ jobs:
           
           echo "🚀 Processing batch: $MESSAGE"
 
-          # Move files to main repo
+          # Move files to main repo (skip missing files to avoid failing the job)
           for FILE in $FILES; do
-             mkdir -p "../main-repo/$(dirname "$FILE")"
-             cp "_staging/$FILE" "../main-repo/$FILE"
+             mkdir -p "../main-repo/$(dirname \"$FILE\")"
+             if [ -f "_staging/$FILE" ]; then
+               cp "_staging/$FILE" "../main-repo/$FILE"
+             else
+               echo "Warning: missing _staging/$FILE, skipping."
+             fi
           done
 
           # Update Schedule in Staging (Remove processed batch)
