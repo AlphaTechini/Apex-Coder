@@ -60,6 +60,10 @@ jobs:
             echo "✅ All batches completed!"
             exit 0
           fi
+          
+          # Extract message for later use
+          MESSAGE=$(echo "$BATCH" | jq -r '.message')
+          echo "📝 Commit Message: $MESSAGE"
 
           # Random Delay (simulating human variance 5-60 mins)
           # Since cron runs every 30, we just sleep 0-15 mins to offset
