@@ -2,29 +2,6 @@
   "batches": [
     {
       "message": "Update infrastructure configuration",
-      "day": 1,
-      "files": [
-        "infra/deploy/services/model-router/test-basic.js",
-        "infra/deploy/services/model-router/test-cache-integration.js",
-        "infra/deploy/services/model-router/test-cache.js",
-        "infra/deploy/services/model-router/test-cost-integration.js",
-        "infra/deploy/services/model-router/test-cost-tracker.js",
-        "infra/deploy/services/model-router/test-error-handling.js",
-        "infra/deploy/services/model-router/test-fallback-simple.js",
-        "infra/deploy/services/model-router/test-fallback.js",
-        "infra/deploy/services/model-router/test-health-integration.js",
-        "infra/deploy/services/model-router/test-health-monitor.js",
-        "infra/deploy/services/model-router/test-hot-reload.js",
-        "infra/deploy/services/model-router/test-metrics.js",
-        "infra/deploy/services/model-router/test-performance.js",
-        "infra/deploy/services/model-router/test-streaming.js",
-        "infra/deploy/services/model-router/test-template-manager.js",
-        "infra/deploy/services/model-router/test-token-integration.js"
-      ],
-      "order": 20
-    },
-    {
-      "message": "Update infrastructure configuration",
       "day": 2,
       "files": [
         "infra/deploy/services/model-router/test-token-tracker.js",
