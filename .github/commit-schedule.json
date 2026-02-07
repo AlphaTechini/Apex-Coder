@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Update project structure",
-      "day": 2,
-      "files": [
-        "server/.prettierrc",
-        "server/README.md",
-        "server/config/config-manager.js",
-        "server/config/enhanced-questionnaire.js",
-        "server/config/environments/development.js",
-        "server/config/environments/production.js",
-        "server/config/model-router-config.js",
-        "server/config/pricing.json.example",
-        "server/examples/model-router-usage.js",
-        "server/models/build.js",
-        "server/models/cloudformation-stack.js",
-        "server/models/db.js",
-        "server/models/deployment.js",
-        "server/models/index.js",
-        "server/models/llm-call-log.js",
-        "server/models/organization.js"
-      ],
-      "order": 6
-    },
-    {
       "message": "Add database models and schema definitions",
       "day": 2,
       "files": [
