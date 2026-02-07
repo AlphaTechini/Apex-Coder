@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Add database models and schema definitions",
-      "day": 2,
-      "files": [
-        "server/models/project.js",
-        "server/models/user.js",
-        "server/package-lock.json",
-        "server/plugins/README.md",
-        "server/plugins/auth.js",
-        "server/plugins/csrf-protection.js",
-        "server/plugins/encryption.js",
-        "server/plugins/error-logging.js",
-        "server/plugins/job-queue.js",
-        "server/plugins/logging.js",
-        "server/plugins/mock-auth.js",
-        "server/plugins/rate-limit.js",
-        "server/plugins/sensible.js",
-        "server/plugins/support.js",
-        "server/plugins/websocket.js",
-        "server/routes/README.md"
-      ],
-      "order": 7
-    },
-    {
       "message": "Implement API route handlers",
       "day": 2,
       "files": [
