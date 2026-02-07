@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "infra/deploy/test/plugins/support.test.js",
-        "infra/deploy/test/routes/aws-actions.test.js",
-        "infra/deploy/test/routes/aws-credentials.test.js",
-        "infra/deploy/test/routes/aws-setup.test.js",
-        "infra/deploy/test/routes/e2e-validation.test.js",
-        "infra/deploy/test/routes/example.test.js",
-        "infra/deploy/test/routes/github-oauth.test.js",
-        "infra/deploy/test/routes/model-router.test.js",
-        "infra/deploy/test/routes/projects-deploy.test.js"
-      ],
-      "order": 4
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "infra/deploy/test/routes/root.test.js",
         "infra/deploy/test/services/admin-console-comprehensive.test.js",
         "infra/deploy/test/services/admin-console.test.js",
