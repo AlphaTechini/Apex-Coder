@@ -4,29 +4,6 @@
       "message": "Enhance backend service layer logic",
       "day": 2,
       "files": [
-        "server/services/providers/deepseek-provider.js",
-        "server/services/providers/deepseek.js",
-        "server/services/providers/demo.js",
-        "server/services/providers/electronhub-provider.js",
-        "server/services/providers/gemini.js",
-        "server/services/providers/github-models-provider.js",
-        "server/services/providers/huggingface-inference.js",
-        "server/services/providers/huggingface-provider.js",
-        "server/services/providers/huggingface.js",
-        "server/services/providers/index.js",
-        "server/services/providers/lightweight-models.js",
-        "server/services/providers/llama.js",
-        "server/services/providers/mistral.js",
-        "server/services/providers/openrouter.js",
-        "server/services/providers/scaleway.js",
-        "server/services/providers/vicuna.js"
-      ],
-      "order": 16
-    },
-    {
-      "message": "Enhance backend service layer logic",
-      "day": 2,
-      "files": [
         "server/services/providers/zukijourney-provider.js",
         "server/services/providers/zukijourney-rate-limiter.js",
         "server/services/questionnaire-audit-logger.js",
