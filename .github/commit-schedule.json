@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "infra/deploy/test/integration/aws-action-layer-integration.test.js",
-        "infra/deploy/test/integration/aws-credentials-validation.test.js",
-        "infra/deploy/test/integration/cloudformation-stack-creation.test.js",
-        "infra/deploy/test/integration/email-notifications-integration.test.js",
-        "infra/deploy/test/integration/huggingface-integration.test.js",
-        "infra/deploy/test/integration/provider-verification-integration.test.js",
-        "infra/deploy/test/integration/questionnaire-audit-integration.test.js",
-        "infra/deploy/test/integration/task-planning-integration.test.js",
-        "infra/deploy/test/manual/verify-cloudformation-stack.js"
-      ],
-      "order": 2
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "infra/deploy/test/models/build.test.js",
         "infra/deploy/test/models/db.test.js",
         "infra/deploy/test/models/organization.test.js",
