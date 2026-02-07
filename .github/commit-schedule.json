@@ -1,19 +1,6 @@
 {
   "batches": [
     {
-      "message": "Configure background job workers",
-      "day": 2,
-      "files": [
-        "workers/services/self-fix-loop.js",
-        "workers/services/test-failure-detector.js",
-        "workers/services/worker-pool.js",
-        "workers/services/workflow-generator.js",
-        "workers/templates/worker.js",
-        "workers/utils/retry.js"
-      ],
-      "order": 20
-    },
-    {
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
