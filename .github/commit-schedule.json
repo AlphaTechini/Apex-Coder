@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 2,
       "files": [
-        "infra/deploy/services/providers/deepseek.js",
-        "infra/deploy/services/providers/demo.js",
-        "infra/deploy/services/providers/electronhub-provider.js",
-        "infra/deploy/services/providers/gemini.js",
-        "infra/deploy/services/providers/github-models-provider.js",
-        "infra/deploy/services/providers/huggingface-inference.js",
-        "infra/deploy/services/providers/huggingface-provider.js",
-        "infra/deploy/services/providers/huggingface.js",
-        "infra/deploy/services/providers/index.js",
-        "infra/deploy/services/providers/lightweight-models.js",
-        "infra/deploy/services/providers/llama.js",
-        "infra/deploy/services/providers/mistral.js",
-        "infra/deploy/services/providers/openrouter.js",
-        "infra/deploy/services/providers/scaleway.js",
-        "infra/deploy/services/providers/vicuna.js",
-        "infra/deploy/services/providers/zukijourney-provider.js"
-      ],
-      "order": 2
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 2,
-      "files": [
         "infra/deploy/services/providers/zukijourney-rate-limiter.js",
         "infra/deploy/services/questionnaire-audit-logger.js",
         "infra/deploy/services/questionnaire-error-handler.js",
