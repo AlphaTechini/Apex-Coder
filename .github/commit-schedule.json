@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 1,
       "files": [
-        "infra/deploy/routes/gdpr.js",
-        "infra/deploy/routes/github-oauth.js",
-        "infra/deploy/routes/github-webhooks.js",
-        "infra/deploy/routes/health.js",
-        "infra/deploy/routes/log-retention.js",
-        "infra/deploy/routes/migration.js",
-        "infra/deploy/routes/model-router-metrics.js",
-        "infra/deploy/routes/model-router.js",
-        "infra/deploy/routes/organizations.js",
-        "infra/deploy/routes/pipeline-monitoring.js",
-        "infra/deploy/routes/pipelines.js",
-        "infra/deploy/routes/projects-simple.js",
-        "infra/deploy/routes/projects.js",
-        "infra/deploy/routes/questionnaire.js",
-        "infra/deploy/routes/root.js",
-        "infra/deploy/routes/task-planner.js"
-      ],
-      "order": 15
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 1,
-      "files": [
         "infra/deploy/routes/test-integration.js",
         "infra/deploy/services/admin-console.js",
         "infra/deploy/services/agent-roles.js",
