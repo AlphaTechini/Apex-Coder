@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 1,
       "files": [
-        "infra/deploy/services/correlation-tracker.js",
-        "infra/deploy/services/cost-controls.js",
-        "infra/deploy/services/deployment-error-logger.js",
-        "infra/deploy/services/deployment-status-tracker.js",
-        "infra/deploy/services/e2e-demo-validator.js",
-        "infra/deploy/services/email-notifications.js",
-        "infra/deploy/services/encryption.js",
-        "infra/deploy/services/enhanced-spec-processor.js",
-        "infra/deploy/services/error-notifier.js",
-        "infra/deploy/services/gdpr-compliance.js",
-        "infra/deploy/services/github-client.js",
-        "infra/deploy/services/job-monitor.js",
-        "infra/deploy/services/job-orchestrator.js",
-        "infra/deploy/services/job-processor.js",
-        "infra/deploy/services/job-queue.js",
-        "infra/deploy/services/log-retention.js"
-      ],
-      "order": 17
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 1,
-      "files": [
         "infra/deploy/services/metrics-collector.js",
         "infra/deploy/services/mock-ai-service.js",
         "infra/deploy/services/model-router-service.js",
