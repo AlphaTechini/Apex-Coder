@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "infra/deploy/test/routes/root.test.js",
-        "infra/deploy/test/services/admin-console-comprehensive.test.js",
-        "infra/deploy/test/services/admin-console.test.js",
-        "infra/deploy/test/services/artifact-persistence.test.js",
-        "infra/deploy/test/services/audit-logger.test.js",
-        "infra/deploy/test/services/auth-project-sharing.test.js",
-        "infra/deploy/test/services/auth.test.js",
-        "infra/deploy/test/services/aws-action-layer.test.js",
-        "infra/deploy/test/services/aws-deployment-stage.test.js"
-      ],
-      "order": 5
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "infra/deploy/test/services/clarifier-batch-qa.test.js",
         "infra/deploy/test/services/cloudformation-service.test.js",
         "infra/deploy/test/services/code-generation-integration.test.js",
