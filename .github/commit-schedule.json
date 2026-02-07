@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Enhance backend service layer logic",
-      "day": 2,
-      "files": [
-        "server/services/providers/zukijourney-provider.js",
-        "server/services/providers/zukijourney-rate-limiter.js",
-        "server/services/questionnaire-audit-logger.js",
-        "server/services/questionnaire-error-handler.js",
-        "server/services/questionnaire-validator.js",
-        "server/services/security-audit-logger.js",
-        "server/services/service-registry.js",
-        "server/services/stage-router.js",
-        "server/services/structured-logger.js",
-        "server/services/task-planner.js",
-        "server/services/technical-inference-service.js",
-        "server/services/telemetry.js",
-        "server/services/template-engine.js",
-        "server/templates/github-oidc-stack.yml",
-        "server/templates/prompts/README.md",
-        "server/templates/prompts/clarifier.txt"
-      ],
-      "order": 17
-    },
-    {
       "message": "Update project structure",
       "day": 2,
       "files": [
