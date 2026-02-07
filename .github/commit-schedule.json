@@ -4,29 +4,6 @@
       "message": "Enhance backend service layer logic",
       "day": 2,
       "files": [
-        "server/services/model-router/template-manager.js",
-        "server/services/model-router/test-basic.js",
-        "server/services/model-router/test-cache-integration.js",
-        "server/services/model-router/test-cache.js",
-        "server/services/model-router/test-cost-integration.js",
-        "server/services/model-router/test-cost-tracker.js",
-        "server/services/model-router/test-error-handling.js",
-        "server/services/model-router/test-fallback-simple.js",
-        "server/services/model-router/test-fallback.js",
-        "server/services/model-router/test-health-integration.js",
-        "server/services/model-router/test-health-monitor.js",
-        "server/services/model-router/test-hot-reload.js",
-        "server/services/model-router/test-metrics.js",
-        "server/services/model-router/test-performance.js",
-        "server/services/model-router/test-streaming.js",
-        "server/services/model-router/test-template-manager.js"
-      ],
-      "order": 14
-    },
-    {
-      "message": "Enhance backend service layer logic",
-      "day": 2,
-      "files": [
         "server/services/model-router/test-token-integration.js",
         "server/services/model-router/test-token-tracker.js",
         "server/services/model-router/token-tracker-usage-example.js",
