@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 1,
       "files": [
-        "infra/deploy/services/model-router/metrics-collector.js",
-        "infra/deploy/services/model-router/model-router.js",
-        "infra/deploy/services/model-router/oauth-manager.js",
-        "infra/deploy/services/model-router/performance-monitor.js",
-        "infra/deploy/services/model-router/pricing-update-example.js",
-        "infra/deploy/services/model-router/provider-registry.js",
-        "infra/deploy/services/model-router/rate-limiter-example.js",
-        "infra/deploy/services/model-router/rate-limiter-factory.js",
-        "infra/deploy/services/model-router/request-queue-backup.js",
-        "infra/deploy/services/model-router/request-queue.js",
-        "infra/deploy/services/model-router/security-utils.js",
-        "infra/deploy/services/model-router/streaming-example.js",
-        "infra/deploy/services/model-router/streaming-parser.js",
-        "infra/deploy/services/model-router/template-integration-example.js",
-        "infra/deploy/services/model-router/template-manager-usage.js",
-        "infra/deploy/services/model-router/template-manager.js"
-      ],
-      "order": 19
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 1,
-      "files": [
         "infra/deploy/services/model-router/test-basic.js",
         "infra/deploy/services/model-router/test-cache-integration.js",
         "infra/deploy/services/model-router/test-cache.js",
