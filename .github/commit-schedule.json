@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 2,
       "files": [
-        "infra/deploy/templates/prompts/docs-creator.txt",
-        "infra/deploy/templates/prompts/file-structure-generator.txt",
-        "infra/deploy/templates/prompts/normalizer.txt",
-        "infra/deploy/templates/prompts/prompt-builder.txt",
-        "infra/deploy/templates/prompts/schema-generator.txt",
-        "infra/deploy/templates/prompts/structural-validator.txt",
-        "infra/deploy/templates/prompts/validator.txt",
-        "infra/deploy/utils/error-handler.js",
-        "infra/deploy/utils/error-responses.js",
-        "infra/deploy/utils/retry-handler.js",
-        "infra/deploy/utils/retry-with-backoff.js",
-        "infra/deploy/utils/retry.js",
-        "infra/docker-compose.prod.yml",
-        "infra/docker-compose.yml",
-        "infra/nginx.conf",
-        "infra/package.json"
-      ],
-      "order": 4
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 2,
-      "files": [
         "infra/terraform/compute.tf",
         "infra/terraform/cost-optimization.tf",
         "infra/terraform/database.tf",
