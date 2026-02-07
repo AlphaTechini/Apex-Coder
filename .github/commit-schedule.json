@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 2,
       "files": [
-        "infra/deploy/services/providers/zukijourney-rate-limiter.js",
-        "infra/deploy/services/questionnaire-audit-logger.js",
-        "infra/deploy/services/questionnaire-error-handler.js",
-        "infra/deploy/services/questionnaire-validator.js",
-        "infra/deploy/services/security-audit-logger.js",
-        "infra/deploy/services/service-registry.js",
-        "infra/deploy/services/stage-router.js",
-        "infra/deploy/services/structured-logger.js",
-        "infra/deploy/services/task-planner.js",
-        "infra/deploy/services/technical-inference-service.js",
-        "infra/deploy/services/telemetry.js",
-        "infra/deploy/services/template-engine.js",
-        "infra/deploy/templates/github-oidc-stack.yml",
-        "infra/deploy/templates/prompts/README.md",
-        "infra/deploy/templates/prompts/clarifier.txt",
-        "infra/deploy/templates/prompts/code-generator.txt"
-      ],
-      "order": 3
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 2,
-      "files": [
         "infra/deploy/templates/prompts/docs-creator.txt",
         "infra/deploy/templates/prompts/file-structure-generator.txt",
         "infra/deploy/templates/prompts/normalizer.txt",
