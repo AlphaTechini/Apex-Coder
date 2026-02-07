@@ -4,29 +4,6 @@
       "message": "Update infrastructure configuration",
       "day": 1,
       "files": [
-        "infra/deploy/routes/test-integration.js",
-        "infra/deploy/services/admin-console.js",
-        "infra/deploy/services/agent-roles.js",
-        "infra/deploy/services/ai-guidance-engine.js",
-        "infra/deploy/services/ai-questionnaire-processor.js",
-        "infra/deploy/services/audit-dashboard.js",
-        "infra/deploy/services/audit-logger.js",
-        "infra/deploy/services/auth.js",
-        "infra/deploy/services/aws-action-layer.js",
-        "infra/deploy/services/aws-ecs-fargate-deployment.js",
-        "infra/deploy/services/aws-iac-deployment.js",
-        "infra/deploy/services/aws-lambda-apigateway-deployment.js",
-        "infra/deploy/services/aws-s3-cloudfront-deployment.js",
-        "infra/deploy/services/cloudformation-service.js",
-        "infra/deploy/services/code-generator.js",
-        "infra/deploy/services/code-parser.js"
-      ],
-      "order": 16
-    },
-    {
-      "message": "Update infrastructure configuration",
-      "day": 1,
-      "files": [
         "infra/deploy/services/correlation-tracker.js",
         "infra/deploy/services/cost-controls.js",
         "infra/deploy/services/deployment-error-logger.js",
