@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Update infrastructure configuration",
-      "day": 2,
-      "files": [
-        "infra/terraform/compute.tf",
-        "infra/terraform/cost-optimization.tf",
-        "infra/terraform/database.tf",
-        "infra/terraform/lambda/cost_optimizer.py",
-        "infra/terraform/main.tf",
-        "infra/terraform/monitoring.tf",
-        "infra/terraform/outputs.tf",
-        "infra/terraform/security.tf",
-        "infra/terraform/storage.tf",
-        "infra/terraform/terraform.tfvars.example",
-        "infra/terraform/variables.tf",
-        "infra/terraform/vpc.tf",
-        "infra/terraform/waf.tf",
-        "pnpm-lock.yaml",
-        "server/.eslintrc.js",
-        "server/.gitignore"
-      ],
-      "order": 5
-    },
-    {
       "message": "Update project structure",
       "day": 2,
       "files": [
