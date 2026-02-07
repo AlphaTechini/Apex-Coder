@@ -1,29 +1,6 @@
 {
   "batches": [
     {
-      "message": "Add utility helper functions",
-      "day": 2,
-      "files": [
-        "server/utils/error-responses.js",
-        "server/utils/retry-handler.js",
-        "server/utils/retry-with-backoff.js",
-        "server/utils/retry.js",
-        "server/work/sim-project-1/specs/specs.json",
-        "start-dev.js",
-        "workers/.env.example",
-        "workers/.eslintrc.js",
-        "workers/.prettierrc",
-        "workers/package-lock.json",
-        "workers/services/artifact-storage.js",
-        "workers/services/deployment-orchestrator.js",
-        "workers/services/github-repo-service.js",
-        "workers/services/job-executor.js",
-        "workers/services/log-streaming.js",
-        "workers/services/pipeline-stage-handlers.js"
-      ],
-      "order": 19
-    },
-    {
       "message": "Configure background job workers",
       "day": 2,
       "files": [
