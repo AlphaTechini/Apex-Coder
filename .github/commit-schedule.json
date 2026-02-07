@@ -4,29 +4,6 @@
       "message": "Enhance backend service layer logic",
       "day": 2,
       "files": [
-        "server/services/log-retention.js",
-        "server/services/metrics-collector.js",
-        "server/services/mock-ai-service.js",
-        "server/services/model-router-service.js",
-        "server/services/model-router.js",
-        "server/services/model-router/README.md",
-        "server/services/model-router/cache-manager.js",
-        "server/services/model-router/connection-pool.js",
-        "server/services/model-router/cost-tracker.js",
-        "server/services/model-router/errors.js",
-        "server/services/model-router/fast-failure.js",
-        "server/services/model-router/health-monitor.js",
-        "server/services/model-router/index.js",
-        "server/services/model-router/initialize-providers.js",
-        "server/services/model-router/integration-example.js",
-        "server/services/model-router/logger.js"
-      ],
-      "order": 12
-    },
-    {
-      "message": "Enhance backend service layer logic",
-      "day": 2,
-      "files": [
         "server/services/model-router/metrics-aggregator.js",
         "server/services/model-router/metrics-collector.js",
         "server/services/model-router/model-router.js",
