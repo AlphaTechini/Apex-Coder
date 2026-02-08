@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "infra/deploy/test/services/model-router.test.js",
-        "infra/deploy/test/services/monitoring.test.js",
-        "infra/deploy/test/services/pipeline-e2e.test.js",
-        "infra/deploy/test/services/pipeline-failure-recovery.test.js",
-        "infra/deploy/test/services/pipeline-orchestrator-retry-simple.test.js",
-        "infra/deploy/test/services/pipeline-orchestrator-retry.test.js",
-        "infra/deploy/test/services/pipeline-stage-integration.test.js",
-        "infra/deploy/test/services/prompt-templates.test.js",
-        "infra/deploy/test/services/provider-verification.test.js"
-      ],
-      "order": 8
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "infra/deploy/test/services/redis-integration.test.js",
         "infra/deploy/test/services/repo-creation-stage.test.js",
         "infra/deploy/test/services/security-audit-logger.test.js",
