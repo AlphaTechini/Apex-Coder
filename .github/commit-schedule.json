@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "server/test/services/aws-deployment-stage.test.js",
-        "server/test/services/clarifier-batch-qa.test.js",
-        "server/test/services/cloudformation-service.test.js",
-        "server/test/services/code-generation-integration.test.js",
-        "server/test/services/cost-controls.test.js",
-        "server/test/services/deepseek-electronhub.test.js",
-        "server/test/services/e2e-demo-validator.test.js",
-        "server/test/services/email-notifications.test.js",
-        "server/test/services/error-handling-integration.test.js"
-      ],
-      "order": 15
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "server/test/services/file-structure-creation.test.js",
         "server/test/services/gcp-deployment.test.js",
         "server/test/services/github-models-provider.test.js",
