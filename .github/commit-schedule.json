@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "server/test/services/task-planner.test.js",
-        "server/test/services/telemetry.test.js",
-        "server/test/services/zukijourney-provider.test.js",
-        "workers/test/artifact-storage-enhanced.test.js",
-        "workers/test/file-structure-worker.test.js",
-        "workers/test/helper.js",
-        "workers/test/log-streaming.test.js",
-        "workers/test/sample.test.js",
-        "workers/test/self-fix-loop.test.js"
-      ],
-      "order": 19
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "workers/test/worker-pool.test.js"
       ],
       "order": 20
