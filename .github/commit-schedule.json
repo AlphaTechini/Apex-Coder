@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "infra/deploy/test/services/clarifier-batch-qa.test.js",
-        "infra/deploy/test/services/cloudformation-service.test.js",
-        "infra/deploy/test/services/code-generation-integration.test.js",
-        "infra/deploy/test/services/cost-controls.test.js",
-        "infra/deploy/test/services/deepseek-electronhub.test.js",
-        "infra/deploy/test/services/e2e-demo-validator.test.js",
-        "infra/deploy/test/services/email-notifications.test.js",
-        "infra/deploy/test/services/error-handling-integration.test.js",
-        "infra/deploy/test/services/file-structure-creation.test.js"
-      ],
-      "order": 6
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "infra/deploy/test/services/github-models-provider.test.js",
         "infra/deploy/test/services/huggingface-inference.test.js",
         "infra/deploy/test/services/huggingface-provider.test.js",
