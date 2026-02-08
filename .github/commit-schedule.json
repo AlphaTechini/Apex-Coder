@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "server/test/services/metrics-collector.test.js",
-        "server/test/services/model-router-initialization.test.js",
-        "server/test/services/model-router.test.js",
-        "server/test/services/monitoring.test.js",
-        "server/test/services/pipeline-e2e.test.js",
-        "server/test/services/pipeline-failure-recovery.test.js",
-        "server/test/services/pipeline-orchestrator-retry-simple.test.js",
-        "server/test/services/pipeline-orchestrator-retry.test.js",
-        "server/test/services/pipeline-orchestrator.test.js"
-      ],
-      "order": 17
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "server/test/services/pipeline-stage-integration.test.js",
         "server/test/services/prompt-templates.test.js",
         "server/test/services/provider-verification.test.js",
