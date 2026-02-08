@@ -1,12 +1,3 @@
 {
-  "batches": [
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
-        "workers/test/worker-pool.test.js"
-      ],
-      "order": 20
-    }
-  ]
+  "batches": []
 }
