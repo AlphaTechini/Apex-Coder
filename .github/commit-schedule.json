@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "server/test/plugins/support.test.js",
-        "server/test/routes/aws-actions.test.js",
-        "server/test/routes/aws-credentials.test.js",
-        "server/test/routes/aws-setup.test.js",
-        "server/test/routes/e2e-validation.test.js",
-        "server/test/routes/example.test.js",
-        "server/test/routes/github-oauth.test.js",
-        "server/test/routes/model-router.test.js",
-        "server/test/routes/projects-deploy.test.js"
-      ],
-      "order": 13
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "server/test/routes/root.test.js",
         "server/test/services/admin-console-comprehensive.test.js",
         "server/test/services/admin-console.test.js",
