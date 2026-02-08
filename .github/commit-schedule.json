@@ -4,22 +4,6 @@
       "message": "Add unit and integration tests",
       "day": 3,
       "files": [
-        "server/test/integration/aws-credentials-validation.test.js",
-        "server/test/integration/cloudformation-stack-creation.test.js",
-        "server/test/integration/email-notifications-integration.test.js",
-        "server/test/integration/huggingface-integration.test.js",
-        "server/test/integration/pipeline-simulation.test.js",
-        "server/test/integration/provider-verification-integration.test.js",
-        "server/test/integration/questionnaire-audit-integration.test.js",
-        "server/test/integration/task-planning-integration.test.js",
-        "server/test/manual/verify-cloudformation-stack.js"
-      ],
-      "order": 11
-    },
-    {
-      "message": "Add unit and integration tests",
-      "day": 3,
-      "files": [
         "server/test/models/build.test.js",
         "server/test/models/db.test.js",
         "server/test/models/organization.test.js",
