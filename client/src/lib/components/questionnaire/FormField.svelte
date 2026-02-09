@@ -1,16 +1,11 @@
 <script>
-	let { 
-		field, 
-		value = {}, 
-		errors = [], 
-		onchange = () => {} 
-	} = $props();
-	
+	let { field, value = {}, errors = [], onchange = () => {}, showErrorText = true } = $props();
+
 	// Get nested value from spec object
 	function getNestedValue(obj, path) {
 		return path.split('.').reduce((current, key) => current?.[key], obj);
 	}
-	
+
 	// Get current field value
 	let fieldValue = $derived.by(() => {
 		const val = getNestedValue(value, field.name);
@@ -21,15 +16,15 @@
 		// For other types, use empty string as fallback
 		return val || '';
 	});
-	
+
 	function handleChange(newValue) {
 		console.log('[TEST v2] HMR WORKING NOW! Field changed:', field.name, newValue);
 		onchange(newValue);
 	}
-	
+
 	function handleInputChange(event) {
 		let newValue = event.target.value;
-		
+
 		// Convert string values to appropriate types
 		if (field.type === 'number') {
 			newValue = newValue === '' ? null : Number(newValue);
@@ -42,7 +37,7 @@
 			// Parse number values from radio buttons
 			else if (!isNaN(newValue) && newValue !== '') newValue = Number(newValue);
 		}
-		
+
 		handleChange(newValue);
 	}
 </script>
@@ -54,11 +49,11 @@
 			<span class="text-accent-error ml-1">*</span>
 		{/if}
 	</label>
-	
+
 	{#if field.description}
 		<p class="text-sm text-white/60 mb-3">{field.description}</p>
 	{/if}
-	
+
 	{#if field.type === 'text'}
 		<input
 			type="text"
@@ -114,14 +109,11 @@
 		</select>
 	{:else if field.type === 'radio'}
 		<!-- Check if this is a number scale (all options are numbers) -->
-		{#if field.options.every(opt => typeof opt.value === 'number')}
+		{#if field.options.every((opt) => typeof opt.value === 'number')}
 			<!-- Number scale buttons -->
 			<div class="mt-3 flex flex-wrap gap-2">
 				{#each field.options as option}
-					<label
-						for="{field.name}-{option.value}"
-						class="relative cursor-pointer"
-					>
+					<label for="{field.name}-{option.value}" class="relative cursor-pointer">
 						<input
 							type="radio"
 							id="{field.name}-{option.value}"
@@ -132,7 +124,9 @@
 							onchange={handleInputChange}
 							class="sr-only peer"
 						/>
-						<div class="w-11 h-11 flex items-center justify-center rounded-xl border-2 border-white/20 bg-bg-secondary text-white/70 font-semibold transition-all peer-checked:border-accent-primary peer-checked:bg-accent-primary/20 peer-checked:text-accent-primary hover:border-accent-primary/50 hover:bg-white/5">
+						<div
+							class="w-11 h-11 flex items-center justify-center rounded-xl border-2 border-white/20 bg-bg-secondary text-white/70 font-semibold transition-all peer-checked:border-accent-primary peer-checked:bg-accent-primary/20 peer-checked:text-accent-primary hover:border-accent-primary/50 hover:bg-white/5"
+						>
 							{option.label}
 						</div>
 					</label>
@@ -201,7 +195,9 @@
 			/>
 			<div class="flex justify-between text-xs text-gray-500 mt-1">
 				<span>{field.min || 0}</span>
-				<span class="font-medium">Current: {fieldValue || field.defaultValue || field.min || 0}</span>
+				<span class="font-medium"
+					>Current: {fieldValue || field.defaultValue || field.min || 0}</span
+				>
 				<span>{field.max || 100}</span>
 			</div>
 		</div>
@@ -242,7 +238,7 @@
 									currentValues.push(option.value);
 								}
 							} else {
-								currentValues = currentValues.filter(v => v !== option.value);
+								currentValues = currentValues.filter((v) => v !== option.value);
 							}
 							handleChange(currentValues);
 						}}
@@ -255,15 +251,15 @@
 			{/each}
 		</div>
 	{/if}
-	
-	{#if errors.length > 0}
+
+	{#if showErrorText && errors.length > 0}
 		<div class="mt-2">
 			{#each errors as error}
 				<p class="text-sm text-accent-error">{error}</p>
 			{/each}
 		</div>
 	{/if}
-	
+
 	{#if field.helpText}
 		<p class="mt-2 text-sm text-white/50">{field.helpText}</p>
 	{/if}
@@ -280,7 +276,7 @@
 		border: 2px solid #ffffff;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	}
-	
+
 	.slider::-moz-range-thumb {
 		height: 20px;
 		width: 20px;

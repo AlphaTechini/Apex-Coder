@@ -78,7 +78,8 @@ export const specJsonSchema = {
         type: 'string',
         required: true,
         minLength: 20,
-        maxLength: 500,
+        maxLength: 5000,
+        pattern: /^[a-zA-Z0-9\s.,!?;:()-_']+$/,
         description: 'High-level user journey overview'
       },
       key_user_actions: {
@@ -119,10 +120,10 @@ export const specJsonSchema = {
         data_collected_from_user: { type: 'array', items: { type: 'string' }, required: true },
         data_displayed_to_user: { type: 'array', items: { type: 'string' }, required: true },
         user_actions: { type: 'array', items: { type: 'string' }, required: true },
-        access_level: { 
-          type: 'string', 
+        access_level: {
+          type: 'string',
           enum: ['public', 'authenticated', 'admin', 'premium'],
-          required: true 
+          required: true
         }
       }
     },
@@ -189,7 +190,7 @@ export const specJsonSchema = {
       },
       secondary_colors: {
         type: 'array',
-        items: { 
+        items: {
           type: 'string',
           pattern: /^#[0-9A-Fa-f]{6}$/
         },
@@ -243,8 +244,8 @@ export const specJsonSchema = {
     properties: {
       project_goals: {
         type: 'string',
-        minLength: 20,
-        maxLength: 500,
+        minLength: 5,
+        maxLength: 200,
         description: 'Main project goals and objectives'
       },
       success_metrics: {
@@ -328,18 +329,18 @@ export class SpecValidationError extends Error {
 function validateField(fieldName, value, schema, path = '') {
   const errors = [];
   const fullPath = path ? `${path}.${fieldName}` : fieldName;
-  
+
   // Check if required field is missing
   if (schema.required && (value === undefined || value === null || value === '')) {
     errors.push(new SpecValidationError(fullPath, 'Field is required'));
     return errors;
   }
-  
+
   // Skip validation if field is not required and empty
   if (!schema.required && (value === undefined || value === null || value === '')) {
     return errors;
   }
-  
+
   // Type validation
   if (schema.type === 'string' && typeof value !== 'string') {
     errors.push(new SpecValidationError(fullPath, `Expected string, got ${typeof value}`, value));
@@ -350,7 +351,7 @@ function validateField(fieldName, value, schema, path = '') {
   } else if (schema.type === 'object' && (typeof value !== 'object' || Array.isArray(value))) {
     errors.push(new SpecValidationError(fullPath, `Expected object, got ${typeof value}`, value));
   }
-  
+
   // String-specific validations
   if (schema.type === 'string' && typeof value === 'string') {
     if (schema.minLength && value.length < schema.minLength) {
@@ -366,7 +367,7 @@ function validateField(fieldName, value, schema, path = '') {
       errors.push(new SpecValidationError(fullPath, `Value must be one of: ${schema.enum.join(', ')}`, value));
     }
   }
-  
+
   // Number-specific validations
   if (schema.type === 'number' && typeof value === 'number') {
     if (schema.min !== undefined && value < schema.min) {
@@ -376,7 +377,7 @@ function validateField(fieldName, value, schema, path = '') {
       errors.push(new SpecValidationError(fullPath, `Maximum value is ${schema.max}`, value));
     }
   }
-  
+
   // Object validation (recursive)
   if (schema.type === 'object' && typeof value === 'object' && schema.properties) {
     for (const [propName, propSchema] of Object.entries(schema.properties)) {
@@ -384,7 +385,7 @@ function validateField(fieldName, value, schema, path = '') {
       errors.push(...propErrors);
     }
   }
-  
+
   return errors;
 }
 
@@ -395,18 +396,18 @@ function validateField(fieldName, value, schema, path = '') {
  */
 export function validateSpec(spec) {
   const errors = [];
-  
+
   if (!spec || typeof spec !== 'object') {
     errors.push(new SpecValidationError('root', 'Spec must be an object'));
     return { isValid: false, errors };
   }
-  
+
   // Validate each top-level field
   for (const [fieldName, fieldSchema] of Object.entries(specJsonSchema)) {
     const fieldErrors = validateField(fieldName, spec[fieldName], fieldSchema);
     errors.push(...fieldErrors);
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors
@@ -430,14 +431,14 @@ export function isSpecComplete(spec) {
  */
 export function formatValidationErrors(errors) {
   const grouped = {};
-  
+
   for (const error of errors) {
     if (!grouped[error.field]) {
       grouped[error.field] = [];
     }
     grouped[error.field].push(error.message);
   }
-  
+
   return grouped;
 }
 

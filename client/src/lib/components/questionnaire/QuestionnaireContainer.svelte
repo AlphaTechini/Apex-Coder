@@ -29,6 +29,7 @@
 	import { validateSpec, formatValidationErrors } from '../../schemas/spec.js';
 	import configService from '../../services/config.js';
 
+	import ErrorNotification from '../common/ErrorNotification.svelte';
 	import QuestionnaireStage from './QuestionnaireStage.svelte';
 	import ConversationalStage from './ConversationalStage.svelte';
 	import UserModeSelector from './UserModeSelector.svelte';
@@ -167,6 +168,11 @@
 		}
 	});
 
+	function handleDismissError() {
+		validationErrorsValue = {};
+		attemptedNext = false;
+	}
+
 	onMount(async () => {
 		// Initialize configuration service
 		await configService.initialize();
@@ -251,53 +257,62 @@
 	async function startSpecRefinement() {
 		if (canStartBuildValue && !isStartingBuild) {
 			isStartingBuild = true;
-			currentStep = STEPS.ANALYZING;
+			currentStep = STEPS.ANALYZING; // Show analyzing state
 
 			try {
-				// 1. Analyze Specs & Get Clarifying Questions
-				// Ideally we'd call an 'analyze' endpoint. For now we reuse 'refine' with empty history
-				// or a dedicated analyze endpoint if we had one.
-				// Let's assume we use /api/questionnaire/refine to simulate the analysis/question generation
-				// In a real app we might have a distinct endpoint for initial analysis.
+				// Call the enhanced spec processor endpoint
+				const response = await fetch('/api/questionnaire/process', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						questionnaireData: specDraftValue,
+						userMode: userModeValue,
+						options: {
+							includeAlternatives: true,
+							allowIncomplete: false
+						}
+					})
+				});
 
-				// Simulate "Analysing" delay
-				await new Promise((r) => setTimeout(r, 2000));
-
-				// Mocking the generation of questions since the backend implementation in refineSpec
-				// is currently a placeholder logic.
-				// In production: const response = await fetch('/api/questionnaire/analyze', ...);
-				// For this implementation, we will mock the "Clarifying Questions" phase
-				// if there are ambiguous fields, otherwise go straight to docs.
-
-				const complexity = specDraftValue.project_overview?.complexity_level || 5;
-
-				// Simple logic to decide if we need questions
-				// In reality this would come from the backend's `refineSpec` logic
-				let needsClarification = false;
-				let questions = [];
-
-				if (complexity > 7 || specDraftValue.project_overview?.app_summary?.length < 50) {
-					needsClarification = true;
-					questions = [
-						{
-							id: 'q1',
-							text: 'You mentioned a high complexity. Could you specify the key user roles?'
-						},
-						{ id: 'q2', text: 'Do you have preferences for the database technology?' }
-					];
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || 'Failed to process questionnaire');
 				}
 
-				if (needsClarification) {
+				const result = await response.json();
+				const processedData = result.data;
+
+				// Store the refined spec
+				refinedSpec = processedData.processedSpec;
+
+				// Check for AI guidance questions (clarifying questions)
+				const guidance =
+					processedData.inputValidation?.guidance || processedData.processedSpec?.ai_guidance;
+				let questions = [];
+
+				if (guidance?.missing_info_questions?.length > 0) {
+					questions = guidance.missing_info_questions.map((q, index) => ({
+						id: `q${index}`,
+						text: q
+					}));
+				}
+
+				// Logic to decide next step
+				// If we have critical missing info or the AI specifically requests clarification
+				if (questions.length > 0) {
 					currentStep = STEPS.CLARIFYING;
 					clarifyingQuestions = questions;
 				} else {
-					// No questions needed, go to docs
-					currentStep = STEPS.PARSING;
-					await generateDocumentation(specDraftValue);
+					// No clarification needed, proceed to documentation generation
+					currentStep = STEPS.PARSING; // Show parsing state (Generating Docs)
+					await generateDocumentation(refinedSpec);
 				}
 			} catch (error) {
 				console.error('Error starting refinement:', error);
-				alert('Failed to analyze requirements. Please try again.');
+				// Show error notification? For now alert or fall back to summary
+				alert(`Analysis failed: ${error.message}`);
 				currentStep = STEPS.SUMMARY;
 			} finally {
 				isStartingBuild = false;
@@ -513,6 +528,9 @@
 </script>
 
 <div class="questionnaire-container flex min-h-screen flex-col bg-bg-primary py-8">
+	<!-- Global Error Notification -->
+	<ErrorNotification errors={validationErrorsValue} onDismiss={handleDismissError} />
+
 	<div class="mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 sm:px-6 lg:px-8">
 		<!-- Header -->
 		<div class="mb-8 text-center">
@@ -611,6 +629,7 @@
 						spec={specDraftValue}
 						errors={validationErrorsValue}
 						isComplete={isCurrentStageCompleteValue}
+						showErrorText={false}
 						on:fieldChange={handleFieldChange}
 						on:next={handleNext}
 						on:previous={handlePrevious}
@@ -625,6 +644,7 @@
 						spec={specDraftValue}
 						errors={validationErrorsValue}
 						isComplete={isCurrentStageCompleteValue}
+						showErrorText={false}
 						onfieldChange={handleFieldChange}
 						onnext={handleNext}
 						onprevious={handlePrevious}
