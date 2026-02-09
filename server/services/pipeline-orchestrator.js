@@ -44,11 +44,11 @@ class PipelineOrchestrator extends EventEmitter {
         timeout: 0
       },
       1: {
-        name: 'refinement', // User: "OpenRouter to refine specs"
-        description: 'OpenRouter Refines Specs',
+        name: 'refinement', // User: "HuggingFace to refine specs"
+        description: 'HuggingFace (OpenHermes) Refines Specs',
         requiresAI: true,
-        model: 'openrouter',
-        modelName: 'mistralai/mistral-7b-instruct', // Efficient refiner
+        model: 'huggingface',
+        modelName: 'OpenHermes-2.5-Mistral-7B', // Efficient refiner
         inputArtifacts: ['specs.json'],
         outputArtifacts: ['refined_specs.json'],
         handler: 'handleClarifierStage', // Reusing handler logic for refinement
@@ -57,11 +57,11 @@ class PipelineOrchestrator extends EventEmitter {
         retries: 2
       },
       2: {
-        name: 'docs-creation', // User: "Llama creates full documentation"
-        description: 'Llama 3.1 Creates Documentation',
+        name: 'docs-creation', // User: "GitHub Models creates full documentation"
+        description: 'GitHub Models (Llama 4 Scout) Creates Documentation',
         requiresAI: true,
         model: 'github-models',
-        modelName: 'Meta-Llama-3.1-8B-Instruct',
+        modelName: 'meta/Llama-4-Scout-17B-16E-Instruct',
         inputArtifacts: ['refined_specs.json'],
         outputArtifacts: ['documentation.md'],
         handler: 'handleDocsCreatorStage',
@@ -70,11 +70,11 @@ class PipelineOrchestrator extends EventEmitter {
         retries: 2
       },
       3: {
-        name: 'schema-creation', // User: "ElectronHub DeepSeek creates schema"
-        description: 'DeepSeek Creates Schema',
+        name: 'schema-creation', // User: "DeepSeek (via ElectronHub) creates schema"
+        description: 'DeepSeek (via ElectronHub) Creates Schema',
         requiresAI: true,
-        model: 'electronhub',
-        modelName: 'deepseek-r1', // or specific model if available
+        model: 'deepseek',
+        modelName: 'deepseek-v3-0324:free', // Using V3 for schema
         inputArtifacts: ['documentation.md'],
         outputArtifacts: ['schema.json', 'documentation_with_schema.md'], // User: "Attach schema to docs"
         handler: 'handleSchemaGeneratorStage',
@@ -84,7 +84,7 @@ class PipelineOrchestrator extends EventEmitter {
       },
       4: {
         name: 'file-structure', // User: "GPT-4o via ElectronHub creates file structure"
-        description: 'GPT-4o Creates File Structure',
+        description: 'GPT-4o (via ElectronHub) Creates File Structure',
         requiresAI: true,
         model: 'electronhub',
         modelName: 'gpt-4o',
@@ -97,10 +97,10 @@ class PipelineOrchestrator extends EventEmitter {
       },
       5: {
         name: 'structure-validation', // User: "Claude validator checks design vs structure"
-        description: 'Claude Validator Checks Structure',
+        description: 'Claude 3.5 Haiku (via ElectronHub) Checks Structure',
         requiresAI: true,
         model: 'electronhub',
-        modelName: 'claude-sonnet-3.5', // Smart validator
+        modelName: 'claude-3-5-haiku-20241022', // Smart validator
         inputArtifacts: ['documentation_with_schema.md', 'file_structure.json'],
         outputArtifacts: ['validated_structure.json'],
         handler: 'handleValidatorStage',
@@ -120,7 +120,7 @@ class PipelineOrchestrator extends EventEmitter {
       },
       7: {
         name: 'prompt-builder', // User: "GPT-5 Mini creates prompt per file"
-        description: 'Prompt Builder (Architect)',
+        description: 'GPT-5 Mini (via ElectronHub) Builds Prompts',
         requiresAI: true,
         model: 'electronhub',
         modelName: 'gpt-5-mini',
@@ -133,7 +133,7 @@ class PipelineOrchestrator extends EventEmitter {
       },
       8: {
         name: 'code-generation', // User: "Gemini-3 writes code from prompts"
-        description: 'Gemini-3 Code Generator',
+        description: 'Gemini-3 (Google) Generates Code',
         requiresAI: true,
         model: 'gemini',
         modelName: 'gemini-3-flash-preview',

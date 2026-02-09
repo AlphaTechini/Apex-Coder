@@ -28,11 +28,15 @@ class ModelRouterService {
     this.initialized = false;
     this.enabledProviders = config.enabledProviders || [
       'openrouter',
-      'huggingface', 
+      'huggingface',
       'deepseek',
       'anthropic',
       'mistral'
     ];
+  }
+
+  get providers() {
+    return this.modelRouter.providers;
   }
 
   /**
@@ -187,7 +191,7 @@ class ModelRouterService {
           healthy: isHealthy,
           timestamp: new Date().toISOString()
         };
-        
+
         if (isHealthy) {
           console.log(`✓ ${provider.name} is healthy`);
         } else {
@@ -219,7 +223,7 @@ class ModelRouterService {
     try {
       // Get agent assignment
       const assignment = await this.agentRoleAssigner.assignTask(task);
-      
+
       // Execute the task
       const response = await this.modelRouter.routeTask({
         role: assignment.agentRole.name,
@@ -347,11 +351,11 @@ class ModelRouterService {
   async estimateTaskCost(task) {
     const assignment = await this.agentRoleAssigner.assignTask(task);
     const provider = assignment.modelAssignment.provider;
-    
+
     // Estimate tokens (rough approximation)
     const estimatedTokens = Math.ceil(task.prompt.length / 4) + (task.maxTokens || 1000);
     const estimatedCost = estimatedTokens * provider.costPerToken;
-    
+
     return {
       provider: provider.name,
       agentRole: assignment.agentRole.name,

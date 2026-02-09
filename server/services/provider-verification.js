@@ -13,7 +13,8 @@ class ProviderVerificationService {
       zukijourney: { available: false, configured: false, models: {}, error: null },
       githubModels: { available: false, configured: false, error: null },
       deepseek: { available: false, configured: false, error: null },
-      gemini: { available: false, configured: false, error: null }
+      gemini: { available: false, configured: false, error: null },
+      electronhub: { available: false, configured: false, error: null }
     };
   }
 
@@ -27,10 +28,11 @@ class ProviderVerificationService {
     // Verify each provider in parallel
     await Promise.all([
       this.verifyHuggingFace(),
-      this.verifyZukijourney(),
+      // this.verifyZukijourney(), // Disabled: Consolidated to electronhub
       this.verifyGitHubModels(),
-      this.verifyDeepSeek(),
-      this.verifyGemini()
+      // this.verifyDeepSeek(), // Disabled: Consolidated to electronhub
+      this.verifyGemini(),
+      this.verifyElectronHub()
     ]);
 
     // Log summary
@@ -45,10 +47,10 @@ class ProviderVerificationService {
    */
   async verifyHuggingFace() {
     const providerName = 'huggingface';
-    
+
     try {
       const apiKey = process.env.HUGGINGFACE_API_KEY;
-      
+
       if (!apiKey) {
         this.verificationResults[providerName] = {
           available: false,
@@ -84,10 +86,10 @@ class ProviderVerificationService {
    */
   async verifyZukijourney() {
     const providerName = 'zukijourney';
-    
+
     try {
       const apiKey = process.env.ZUKI_API_KEY;
-      
+
       if (!apiKey) {
         this.verificationResults[providerName] = {
           available: false,
@@ -128,10 +130,10 @@ class ProviderVerificationService {
           modelResults[model] = { available: true, description };
           this.logger.info(`✅ Zukijourney: ${model} available`);
         } catch (callError) {
-          modelResults[model] = { 
-            available: false, 
+          modelResults[model] = {
+            available: false,
             description,
-            error: callError.message 
+            error: callError.message
           };
           this.logger.warn(`⚠️  Zukijourney: ${model} call failed - ${callError.message}`);
         }
@@ -169,10 +171,10 @@ class ProviderVerificationService {
    */
   async verifyGitHubModels() {
     const providerName = 'githubModels';
-    
+
     try {
       const apiKey = process.env.GITHUB_TOKEN;
-      
+
       if (!apiKey) {
         this.verificationResults[providerName] = {
           available: false,
@@ -219,17 +221,18 @@ class ProviderVerificationService {
    */
   async verifyDeepSeek() {
     const providerName = 'deepseek';
-    
+
     try {
-      const apiKey = process.env.DEEPSEEK_API_KEY;
-      
+      // DeepSeek now uses ElectronHub key
+      const apiKey = process.env.DEEPSEEK_API_KEY || process.env.ELECTRON_HUB_KEY;
+
       if (!apiKey) {
         this.verificationResults[providerName] = {
           available: false,
           configured: false,
-          error: 'DEEPSEEK_API_KEY not set in environment'
+          error: 'ELECTRON_HUB_KEY (or DEEPSEEK_API_KEY) not set in environment'
         };
-        this.logger.warn('⚠️  DeepSeek: API key not configured');
+        this.logger.warn('⚠️  DeepSeek: API key not configured (requires ELECTRON_HUB_KEY)');
         return;
       }
 
@@ -281,10 +284,10 @@ class ProviderVerificationService {
    */
   async verifyGemini() {
     const providerName = 'gemini';
-    
+
     try {
       const apiKey = process.env.GEMINI_API_KEY;
-      
+
       if (!apiKey) {
         this.verificationResults[providerName] = {
           available: false,
@@ -326,6 +329,68 @@ class ProviderVerificationService {
   }
 
   /**
+   * Verify ElectronHub provider (Requirement 4.x)
+   * Used for GPT-5 Mini, GPT-4o, Claude (via ElectronHub)
+   */
+  async verifyElectronHub() {
+    const providerName = 'electronhub';
+
+    try {
+      const apiKey = process.env.ELECTRON_HUB_KEY;
+
+      if (!apiKey) {
+        this.verificationResults[providerName] = {
+          available: false,
+          configured: false,
+          error: 'ELECTRON_HUB_KEY not set in environment'
+        };
+        this.logger.warn('⚠️  ElectronHub: API key not configured');
+        return;
+      }
+
+      // Require CommonJS module
+      const ElectronHubProvider = require('./providers/electronhub-provider.js');
+
+      // Try to instantiate provider
+      const provider = new ElectronHubProvider({
+        name: 'electronhub',
+        apiKey,
+        timeout: 10000,
+        retries: 1
+      });
+
+      // Test with a simple model
+      try {
+        await provider.call('gpt-5-mini', [
+          { role: 'user', content: 'Hello' }
+        ], { maxTokens: 5 });
+
+        this.verificationResults[providerName] = {
+          available: true,
+          configured: true,
+          models: ['gpt-5-mini', 'gpt-4o', 'claude-3-5-haiku-20241022'],
+          error: null
+        };
+        this.logger.info('✅ ElectronHub: Available and configured');
+      } catch (callError) {
+        this.verificationResults[providerName] = {
+          available: false,
+          configured: true,
+          error: `API call failed: ${callError.message}`
+        };
+        this.logger.warn(`⚠️  ElectronHub: Configured but API call failed - ${callError.message}`);
+      }
+    } catch (error) {
+      this.verificationResults[providerName] = {
+        available: false,
+        configured: false,
+        error: error.message
+      };
+      this.logger.error(`❌ ElectronHub: Verification failed - ${error.message}`);
+    }
+  }
+
+  /**
    * Log verification summary
    */
   logVerificationSummary() {
@@ -337,6 +402,7 @@ class ProviderVerificationService {
       { name: 'HuggingFace', key: 'huggingface', stage: 'Stage 1 (Clarifier)' },
       { name: 'Zukijourney', key: 'zukijourney', stage: 'Stages 1.5, 3.5, 4, 7 (GPT-5 Mini, GPT-4o, Claude)' },
       { name: 'GitHub Models', key: 'githubModels', stage: 'Stage 2 (Llama 4 Scout)' },
+      { name: 'ElectronHub', key: 'electronhub', stage: 'Stages 1.5, 4, 7 (GPT-5 Mini, GPT-4o, Claude)' },
       { name: 'DeepSeek', key: 'deepseek', stage: 'Stage 3 (Schema Generator)' },
       { name: 'Gemini', key: 'gemini', stage: 'Stage 7 (Main Coder)' }
     ];
@@ -347,9 +413,9 @@ class ProviderVerificationService {
     for (const provider of providers) {
       const result = this.verificationResults[provider.key];
       const status = result.available ? '✅' : (result.configured ? '⚠️ ' : '❌');
-      
+
       this.logger.info(`${status} ${provider.name} - ${provider.stage}`);
-      
+
       if (!result.configured) {
         allConfigured = false;
         this.logger.info(`   Error: ${result.error}`);

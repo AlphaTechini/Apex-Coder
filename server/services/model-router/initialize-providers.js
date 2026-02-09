@@ -13,6 +13,7 @@ const HuggingFaceProvider = require('../providers/huggingface-provider.js');
 const ZukijourneyProvider = require('../providers/zukijourney-provider.js');
 const GitHubModelsProvider = require('../providers/github-models-provider.js');
 const DeepSeekProvider = require('../providers/deepseek-provider.js');
+const ElectronHubProvider = require('../providers/electronhub-provider.js');
 const GeminiProvider = require('../providers/gemini.js');
 
 /**
@@ -80,7 +81,11 @@ async function initializeProviders(logger = console) {
         case 'gemini':
           providerInstance = new GeminiProvider(providerConfig);
           break;
-        
+
+        case 'electronhub':
+          providerInstance = new ElectronHubProvider(providerConfig);
+          break;
+
         default:
           results.skipped.push({
             provider: providerName,

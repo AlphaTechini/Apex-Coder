@@ -194,28 +194,7 @@ module.exports = async function (fastify, opts) {
     fastify.decorate('pipelineOrchestrator', null)
   }
 
-  // Add health check endpoint for ModelRouter
-  fastify.get('/api/model-router/health', async (request, reply) => {
-    try {
-      if (!fastify.modelRouter) {
-        return reply.code(503).send({
-          status: 'unavailable',
-          message: 'ModelRouter not initialized'
-        })
-      }
 
-      const status = fastify.modelRouter.getStatus()
-      return reply.send({
-        status: 'healthy',
-        ...status
-      })
-    } catch (error) {
-      return reply.code(500).send({
-        status: 'error',
-        message: error.message
-      })
-    }
-  })
 
   // Add provider verification status endpoint
   fastify.get('/api/providers/status', async (request, reply) => {
@@ -293,10 +272,22 @@ module.exports = async function (fastify, opts) {
   })
 
   // Manually load all plugins (replacing fastify-autoload)
-  const pluginsDir = path.join(__dirname, 'plugins')
-  const pluginFiles = fs.readdirSync(pluginsDir).filter(file => file.endsWith('.js'))
+  // Ensure priority plugins are loaded first to handle dependencies
+  const PRIORITY_PLUGINS = ['redis.js', 'auth.js']
 
-  for (const file of pluginFiles) {
+  const pluginsDir = path.join(__dirname, 'plugins')
+  const allPluginFiles = fs.readdirSync(pluginsDir).filter(file => file.endsWith('.js'))
+
+  // Filter out priority plugins from the main list to avoid double loading
+  // and check if they exist in the available files
+  const availablePlugins = new Set(allPluginFiles)
+  const priorityToLoad = PRIORITY_PLUGINS.filter(file => availablePlugins.has(file))
+  const remainingToLoad = allPluginFiles.filter(file => !PRIORITY_PLUGINS.includes(file))
+
+  // Combine lists: priority first, then the rest
+  const pluginsToLoad = [...priorityToLoad, ...remainingToLoad]
+
+  for (const file of pluginsToLoad) {
     try {
       const plugin = require(path.join(pluginsDir, file))
       await fastify.register(plugin, opts)

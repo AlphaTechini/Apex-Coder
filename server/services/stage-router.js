@@ -48,9 +48,9 @@ const STAGE_MODEL_MAP = {
     requiresAI: true,
     description: 'DeepSeek Creates Schema',
     provider: 'electronhub',
-    model: 'deepseek-v3.2:free',
+    model: 'deepseek-v3-0324:free',
     fallbacks: [
-      { provider: 'electronhub', model: 'deepseek-reasoner' }
+      { provider: 'electronhub', model: 'deepseek-r1:free' }
     ]
   },
   4: {

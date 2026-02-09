@@ -9,22 +9,22 @@
 const DEFAULT_CONFIG = {
   // Demo mode settings
   demoMode: 'auto', // 'auto', 'enabled', 'disabled'
-  
+
   // Fallback chain (order matters)
-  fallbackChain: ['openrouter', 'deepseek', 'huggingface', 'anthropic', 'demo'],
-  
+  fallbackChain: ['openrouter', 'huggingface', 'anthropic', 'demo'],
+
   // Health check settings
   healthCheckOnStartup: true,
   healthCheckInterval: 300000, // 5 minutes
   healthCheckTimeout: 5000, // 5 seconds
-  
+
   // Timeout settings by complexity
   timeouts: {
     low: 15000,    // 15 seconds
     medium: 30000, // 30 seconds
     high: 60000    // 60 seconds
   },
-  
+
   // Retry and backoff settings
   retry: {
     maxAttempts: 3,
@@ -32,13 +32,13 @@ const DEFAULT_CONFIG = {
     maxDelay: 16000,      // 16 seconds
     jitterFactor: 0.3     // 30% jitter
   },
-  
+
   // Provider health thresholds
   health: {
     consecutiveFailuresThreshold: 3,
     recoveryCheckInterval: 60000 // 1 minute
   },
-  
+
   // Cost controls
   cost: {
     maxCostPerCall: 1.0,
@@ -46,7 +46,7 @@ const DEFAULT_CONFIG = {
     maxCostPerUser: 100.0,
     alertThreshold: 0.8 // Alert at 80% of limit
   },
-  
+
   // Performance settings
   performance: {
     maxConcurrentCalls: 10,
@@ -54,7 +54,7 @@ const DEFAULT_CONFIG = {
     cacheEnabled: false,
     cacheTTL: 3600000 // 1 hour
   },
-  
+
   // Logging and monitoring
   logging: {
     logLevel: 'info', // 'debug', 'info', 'warn', 'error'
@@ -62,7 +62,7 @@ const DEFAULT_CONFIG = {
     logMetrics: true,
     metricsInterval: 60000 // 1 minute
   },
-  
+
   // Provider-specific configurations
   providers: {
     huggingface: {
@@ -131,7 +131,7 @@ const DEFAULT_CONFIG = {
       timeout: 30000,
       retries: 2
     },
-    // ElectronHub provider for GPT-5 Mini and other models
+    // ElectronHub provider for GPT-5 Mini and other models, including DeepSeek
     electronhub: {
       name: 'electronhub',
       enabled: true,
@@ -142,7 +142,11 @@ const DEFAULT_CONFIG = {
         'file-structure-generator': 'gpt-4o',
         'validator': 'claude-3-5-haiku-20241022',
         'code-generator-fallback-complex': 'claude-sonnet-4-5-20250929',  // Complex task fallback
-        'code-generator-fallback-simple': 'gpt-5-codex'  // Simple task fallback
+        'code-generator-fallback-simple': 'gpt-5-codex',  // Simple task fallback
+        // Merged DeepSeek Models
+        'schema-generator': 'deepseek-v3-0324:free',
+        'debugger': 'deepseek-coder',
+        'reasoning': 'deepseek-r1:free'
       },
       rateLimit: {
         maxConcurrent: 5,
@@ -171,6 +175,19 @@ const DEFAULT_CONFIG = {
         'gpt-5-codex': {
           input: 0.10,      // per 1M tokens
           output: 0.20      // per 1M tokens
+        },
+        // DeepSeek Pricing
+        'deepseek-v3-0324:free': {
+          input: 0.27,      // per 1M tokens (free tier)
+          output: 1.10      // per 1M tokens
+        },
+        'deepseek-r1:free': {
+          input: 0.55,      // per 1M tokens (free tier)
+          output: 2.19      // per 1M tokens
+        },
+        'deepseek-coder': {
+          input: 0.14,      // per 1M tokens (premium model)
+          output: 0.28      // per 1M tokens
         }
       },
       timeout: 30000,
@@ -201,7 +218,7 @@ const DEFAULT_CONFIG = {
     },
     deepseek: {
       name: 'deepseek',
-      enabled: true,
+      enabled: false,  // Disabled, models moved to electronhub
       baseURL: 'https://api.electronhub.ai/v1',  // Using ElectronHub
       models: {
         'schema-generator': 'deepseek-v3-0324:free',  // DeepSeek V3 for schema generation
@@ -234,7 +251,7 @@ const DEFAULT_CONFIG = {
       // Enhanced configuration for model selection
       complexityThresholds: {
         low: [1, 3],
-        medium: [4, 6], 
+        medium: [4, 6],
         high: [7, 10]
       },
       modelSelection: {
@@ -380,7 +397,7 @@ const DEFAULT_CONFIG = {
       }
     }
   },
-  
+
   // Role-to-Model Mappings
   // Each role can have:
   // - primary: The main provider/model to use
@@ -397,19 +414,19 @@ const DEFAULT_CONFIG = {
     'normalizer': {
       primary: { provider: 'electronhub', model: 'gpt-5-mini' },
       fallbacks: [
-        { provider: 'deepseek', model: 'deepseek-v3-0324:free' },
+        { provider: 'electronhub', model: 'deepseek-v3-0324:free' },
         { provider: 'huggingface', model: 'OpenHermes-2.5-Mistral-7B' }
       ]
     },
     'docs-creator': {
       primary: { provider: 'github-models', model: 'meta/Llama-4-Scout-17B-16E-Instruct' },
       fallbacks: [
-        { provider: 'deepseek', model: 'deepseek-v3-0324:free' },
+        { provider: 'electronhub', model: 'deepseek-v3-0324:free' },
         { provider: 'huggingface', model: 'OpenHermes-2.5-Mistral-7B' }
       ]
     },
     'schema-generator': {
-      primary: { provider: 'deepseek', model: 'deepseek-v3-0324:free' },  // DeepSeek V3 for schema generation
+      primary: { provider: 'electronhub', model: 'deepseek-v3-0324:free' },
       fallbacks: [
         { provider: 'electronhub', model: 'claude-3-5-haiku-20241022' },
         { provider: 'github-models', model: 'meta/Llama-4-Scout-17B-16E-Instruct' },
@@ -419,7 +436,7 @@ const DEFAULT_CONFIG = {
     'validator': {
       primary: { provider: 'electronhub', model: 'claude-3-5-haiku-20241022' },
       fallbacks: [
-        { provider: 'deepseek', model: 'deepseek-v3-0324:free' },
+        { provider: 'electronhub', model: 'deepseek-v3-0324:free' },
         { provider: 'github-models', model: 'meta/Llama-4-Scout-17B-16E-Instruct' }
       ]
     },
@@ -448,9 +465,9 @@ const DEFAULT_CONFIG = {
       ]
     },
     'debugger': {
-      primary: { provider: 'deepseek', model: 'deepseek-coder' },  // DeepSeek Coder for debugging and fixing
+      primary: { provider: 'electronhub', model: 'deepseek-coder' },  // DeepSeek Coder via ElectronHub
       fallbacks: [
-        { provider: 'deepseek', model: 'deepseek-r1:free' },  // R1 as fallback for reasoning
+        { provider: 'electronhub', model: 'deepseek-r1:free' },  // R1 as fallback for reasoning
         { provider: 'electronhub', model: 'gpt-5-codex' }
       ]
     },
@@ -458,13 +475,13 @@ const DEFAULT_CONFIG = {
       primary: { provider: 'electronhub', model: 'gpt-5-mini' },
       fallbacks: [
         { provider: 'electronhub', model: 'claude-3-5-haiku-20241022' },
-        { provider: 'deepseek', model: 'deepseek-v3-0324:free' }
+        { provider: 'electronhub', model: 'deepseek-v3-0324:free' }
       ]
     },
     'file-structure-generator': {
       primary: { provider: 'electronhub', model: 'gpt-5-mini' },  // Use GPT-5 Mini instead of GPT-4o
       fallbacks: [
-        { provider: 'deepseek', model: 'deepseek-v3-0324:free' },
+        { provider: 'electronhub', model: 'deepseek-v3-0324:free' },
         { provider: 'electronhub', model: 'claude-3-5-haiku-20241022' },
         { provider: 'github-models', model: 'meta/Llama-4-Scout-17B-16E-Instruct' }
       ]
@@ -491,7 +508,7 @@ const ENVIRONMENT_CONFIGS = {
       maxCostPerUser: 200.0
     }
   },
-  
+
   test: {
     demoMode: 'enabled',
     healthCheckOnStartup: false,
@@ -509,7 +526,7 @@ const ENVIRONMENT_CONFIGS = {
       demo: { enabled: true }
     }
   },
-  
+
   production: {
     demoMode: 'disabled',
     healthCheckOnStartup: true,
@@ -643,7 +660,7 @@ class ModelRouterConfig {
     for (const [provider, apiKey] of Object.entries(providerKeys)) {
       if (this.config.providers[provider]) {
         this.config.providers[provider].apiKey = apiKey;
-        
+
         // Disable provider if no API key in production
         if (this.environment === 'production' && !apiKey && provider !== 'demo') {
           this.config.providers[provider].enabled = false;
@@ -701,7 +718,7 @@ class ModelRouterConfig {
       if (!providerConfig.name) {
         errors.push(`Provider ${name} must have a name field`);
       }
-      
+
       if (typeof providerConfig.enabled !== 'boolean') {
         errors.push(`Provider ${name} must have boolean enabled field`);
       }
@@ -766,7 +783,7 @@ class ModelRouterConfig {
           if (!mapping.primary.model) {
             errors.push(`Role ${role} primary mapping must have model`);
           }
-          
+
           // Check if provider exists
           if (!this.config.providers[mapping.primary.provider]) {
             errors.push(`Role ${role} references non-existent provider: ${mapping.primary.provider}`);
@@ -785,7 +802,7 @@ class ModelRouterConfig {
               if (!fallback.model) {
                 errors.push(`Role ${role} fallback[${index}] must have model`);
               }
-              
+
               // Check if provider exists
               if (fallback.provider && !this.config.providers[fallback.provider]) {
                 errors.push(`Role ${role} fallback[${index}] references non-existent provider: ${fallback.provider}`);
@@ -802,7 +819,7 @@ class ModelRouterConfig {
           if (!mapping.fallback.model) {
             errors.push(`Role ${role} fallback mapping must have model`);
           }
-          
+
           // Check if provider exists
           if (!this.config.providers[mapping.fallback.provider]) {
             errors.push(`Role ${role} references non-existent fallback provider: ${mapping.fallback.provider}`);
@@ -1223,7 +1240,7 @@ class ModelRouterConfig {
 
     for (const [key, pricing] of Object.entries(pricingUpdates)) {
       const [provider, model] = key.split('.');
-      
+
       if (!provider || !model) {
         throw new Error(`Invalid pricing key format: ${key}. Expected 'provider.model'`);
       }
@@ -1295,7 +1312,7 @@ class ModelRouterConfig {
    */
   getProviderRateLimit(provider) {
     const providerConfig = this.getProviderConfig(provider);
-    return providerConfig && providerConfig.rateLimit ? 
+    return providerConfig && providerConfig.rateLimit ?
       this.deepClone(providerConfig.rateLimit) : null;
   }
 }
